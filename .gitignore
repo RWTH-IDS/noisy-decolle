@@ -1,0 +1,15 @@
+.vscode/
+build/
+decolle.egg-info/
+dist/
+pull_files_only.sh
+scripts/data/
+scripts/logs/
+decolle/__pycache__
+quantization/__pycache__/
+quantization/pq/__pycache__/
+quantization/pq/modules/__pycache__/
+quantization/scalar/__pycache__/
+quantization/scalar/modules/__pycache__/
+scripts/__pycache__/
+logs/

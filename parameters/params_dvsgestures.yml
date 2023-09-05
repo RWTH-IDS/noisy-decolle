@@ -1,0 +1,97 @@
+L2: 0.0
+Mhid: []
+Nhid:
+- 64
+- 128
+- 128
+alpha:
+- 0.97
+alpharp:
+- 0.65
+ba_noise: 0.0
+ba_noise_torch: 0.0
+ba_train: 0.0
+batch_size: 72
+beta:
+- 0.92
+betas:
+- 0.0
+- 0.95
+burnin_steps: 100
+checkpoint_number: -1
+chunk_size_test: 1800
+chunk_size_train: 500
+dataset: torchneuromorphic.dvs_gestures.dvsgestures_dataloaders
+deltat: 1000
+device: cuda:0
+dropout: 0.5
+gif_save_dir: null
+hot_pixels: 0.0
+initial_lr_drop: 1
+input_shape:
+- 2
+- 32
+- 32
+kernel_size:
+- 7
+lc_ampl: 2.0
+learning_method: rtrl
+learning_rate: 0.00036
+log_folder: null
+loss: smoothL1
+loss_scope: null
+lr_drop_factor: 5
+lr_drop_interval: 30
+membrane_voltage_save_dir: null
+mismatch: 0.0
+mismatch_forward: 0.0
+no_save: false
+no_train: false
+npy_name: null
+num_conv_layers: 3
+num_dl_workers: 6
+num_epochs: 200
+num_layers: 3
+num_mlp_layers: 0
+online_update: true
+optimizer: adamax
+out_channels: 11
+p_quantise: 0
+params_file: parameters/params_dvsgestures.yml
+percentile: 0
+pool_size:
+- 2
+- 1
+- 2
+quant_method: float
+quantise_test: 0
+quantise_training: 0
+quantise_weight: 0
+random_tau: false
+reg1_l:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+reg2_l:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+reg_smooth_fct: None
+resume_from: null
+sam: null
+sam_directory: null
+save_dir: null
+save_voltage: null
+seed: 1
+spike_add: 0.0
+spike_loss: 0.0
+symmetric: false
+test_interval: 3
+thermal_noise: 0.0
+threshold: 0.0
+verbose: false
+voltage_save_dir: null
+weight_bias_save_dir: null
+with_output_layer: false
