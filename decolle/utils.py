@@ -256,7 +256,6 @@ def prepare_experiment():
     parser.add_argument('--mismatch', type=float, help='Enter level of mismatch in percent')
     parser.add_argument('--spike_loss', type=float, help='Define percentage of spike loss from one layer to another')
     parser.add_argument('--spike_add', type=float, help='Define percentage of added spikes from one layer to another')
-    parser.add_argument('--quantise_weight', type=int, help='Enter the number of bits for weight')
     parser.add_argument('--weight_bias_save_dir', type=str, help= 'Save weight and bias distribution to this directory (add name without .npy) coming from home directory')
     parser.add_argument('--percentile', type=float, help='Percentile for calculating s for quantisation')   
     parser.add_argument('--log_folder', type=str, help='Enter name for log folder')
@@ -503,10 +502,6 @@ def test(gen_test, decolle_loss, net, burnin, glob_args=None, print_error = True
     # Noise: Mismatch
     if glob_args!=None and glob_args.mismatch != 0:
         net.add_mismatch(glob_args.mismatch)
-
-    # Noise: Weight Quantization
-    if glob_args!=None and glob_args.quantise_weight != 0:
-        net.quantise_weight_bias(glob_args.quantise_weight, glob_args)
     
     with torch.no_grad(): 
         device = net.get_input_layer_device() 
