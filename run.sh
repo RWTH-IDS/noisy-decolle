@@ -41,7 +41,7 @@ for reg in 0.0001 0.0005 0.001 0.005; do
   #quantization
   for noise in 2 3 4 6 8; do
     echo "Quantization: $noise at reg2_l=$reg"
-    CUDA_VISIBLE_DEVICES=2 python train_lenet_decolle.py --device cuda:0 --params_file /home/stadtmann/1_Projects/noisysnns/parameters/params_dvsgestures.yml --save_dir icmla/quant_${noise}_reg${reg} --seed $SLURM_JOB_ID --reg2_l $reg $reg $reg $reg --quantise_test $noise
+    CUDA_VISIBLE_DEVICES=2 python train_lenet_decolle.py --device cuda:0 --params_file /home/stadtmann/1_Projects/noisysnns/parameters/params_dvsgestures.yml --save_dir icmla/quant_${noise}_reg${reg} --seed $SLURM_JOB_ID --reg2_l $reg $reg $reg $reg --quantise_bits $noise
   done
   #thermal
   for noise in 0.0005 0.001 0.005 0.01; do

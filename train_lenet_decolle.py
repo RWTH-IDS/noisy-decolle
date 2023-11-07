@@ -93,8 +93,8 @@ def main():
                         with_output_layer=args.with_output_layer,
                         threshold=args.threshold).to(args.device)
 
-    if glob_args.quantise_training != 0:
-        scalar.quantize_model_(net, bits=glob_args.quantise_training, percentile=glob_args.percentile, p=glob_args.p_quantise, method=glob_args.quant_method)
+    if glob_args.quantise_bits != 0 and not args.no_train:
+        scalar.quantize_model_(net, bits=glob_args.quantise_bits, percentile=glob_args.percentile, p=glob_args.p_quantise, method=glob_args.quant_method)
 
     if hasattr(args.learning_rate, '__len__'):
         from decolle.utils import MultiOpt
@@ -167,8 +167,8 @@ def main():
         if glob_args.membrane_voltage_save_dir != None:
             initialize_save_membrane(glob_args.membrane_voltage_save_dir)
 
-        if glob_args.quantise_test != 0:
-            scalar.quantize_model_(net, bits=glob_args.quantise_test, percentile=glob_args.percentile, p=1.0, method=glob_args.quant_method)
+        if glob_args.quantise_bits != 0:
+            scalar.quantize_model_(net, bits=glob_args.quantise_bits, percentile=glob_args.percentile, p=1.0, method=glob_args.quant_method)
 
         if glob_args.save_voltage != None:
             return test(gen_test, decolle_loss, net, args.burnin_steps, glob_args, print_error = True)
