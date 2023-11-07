@@ -21,7 +21,7 @@ for reg in 0.0001 0.0005 0.001 0.005; do
   #ba activity
   for noise in 1 2 4 6; do
     echo "Background activity: $noise at reg2_l=$reg"
-    CUDA_VISIBLE_DEVICES=2 python train_lenet_decolle.py --device cuda:0 --params_file /home/stadtmann/1_Projects/noisysnns/parameters/params_dvsgestures.yml --save_dir icmla/ba_${noise}_reg${reg} --seed $SLURM_JOB_ID --reg2_l $reg $reg $reg $reg --ba_noise_torch $noise
+    CUDA_VISIBLE_DEVICES=2 python train_lenet_decolle.py --device cuda:0 --params_file /home/stadtmann/1_Projects/noisysnns/parameters/params_dvsgestures.yml --save_dir icmla/ba_${noise}_reg${reg} --seed $SLURM_JOB_ID --reg2_l $reg $reg $reg $reg --ba_noise $noise
   done
   #hot pixels
   for noise in 0.03 0.06 0.09 0.17 0.27; do

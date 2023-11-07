@@ -250,7 +250,6 @@ def prepare_experiment():
     parser.add_argument('--thermal_noise', type=float, help='Standard deviation of Gaussian noise on membrane simulating thermal noise')
     parser.add_argument('--hot_pixels', type=float, help='Hot pixels proportion (in %)')
     parser.add_argument('--ba_noise', type=float, help='Lambda of background activity')
-    parser.add_argument('--ba_noise_torch', type=float, help='Lambda of background activity')
     parser.add_argument('--npy_name', type=str, help='Describe path and npy-file name coming from home directory, saves accuracies')
     parser.add_argument('--gif_save_dir', type=str, help='Enter gif parent save dir starting with / if test data should be saved as gif')
     parser.add_argument('--membrane_voltage_save_dir', type=str, help='Save membrane voltages to this directory (add name without .npy)')
@@ -555,24 +554,10 @@ def test(gen_test, decolle_loss, net, burnin, glob_args=None, print_error = True
                 if glob_args.gif_save_dir != None:
                     print_to_gif(data_batch, target_batch, dtype, device, glob_args, batch_num, "hot_pixel_"+str(glob_args.hot_pixels))
 
-            # Noise: Background Activity
+            # Noise: Background Activity (efficient implementation, using PyTorch)
             if glob_args!=None and glob_args.ba_noise > 0.0:
-                for i in range(batch_size):
-                    len_x = data_batch.shape[3]
-                    len_y = data_batch.shape[4]
-                    pixels = [[k,i,j] for i in range(0,len_x) for j in range(len_y) for k in range(2)]
-                    for b in range(data_batch.shape[1]):
-                        num_ba_pixels = np.random.poisson(glob_args.ba_noise)
-                        ba_pixels = random.sample(pixels, num_ba_pixels)
-                        for a in range(len(ba_pixels)):
-                            data_batch[i,b,ba_pixels[a][0], ba_pixels[a][1], ba_pixels[a][2]] = 1.0
-                if glob_args.gif_save_dir != None:
-                    print_to_gif(data_batch, target_batch, dtype, device, glob_args, batch_num, "ba_noise_"+str(glob_args.ba_noise))
-
-            # Noise: Background Activity (more efficient alternative implementation)
-            if glob_args!=None and glob_args.ba_noise_torch > 0.0:
                 for timestep in range(data_batch.shape[1]):
-                    num_ba_pixels = np.random.poisson(glob_args.ba_noise_torch)
+                    num_ba_pixels = np.random.poisson(glob_args.ba_noise)
                     device = data_batch.device
                     dtype = data_batch.dtype
                     chance_add_per_channel = (num_ba_pixels) / (data_batch[:,timestep,:,:,:].shape[1] * data_batch[:,timestep,:,:,:].shape[2] * data_batch[:,timestep,:,:,:].shape[3])

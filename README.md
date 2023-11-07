@@ -20,7 +20,7 @@ python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir spikeloss_test --spike_loss $noise  --no_train true --resume_from results/pretrained
 
 #### Background activity
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir ba_test --ba_noise_torch $noise  --no_train true --resume_from results/pretrained
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir ba_test --ba_noise $noise  --no_train true --resume_from results/pretrained
 
 #### Hot pixels
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir hotpixel_test --hot_pixels $noise  --no_train true --resume_from results/pretrained
