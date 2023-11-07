@@ -505,51 +505,6 @@ class DECOLLEBase(nn.Module):
             lif[0].tau_m = torch.nn.Parameter(1. / (1 - lif[0].alpha), requires_grad=False)
             lif[0].tau_s = torch.nn.Parameter(1. / (1 - lif[0].beta), requires_grad=False)
 
-    def quantise_weight_bias(self, bits, glob_args, num_elements_hist=20, percentile=99.0):
-        if glob_args.percentile != 0:
-            percentile = glob_args.percentile
-        
-        # Create flattened tensor containing either all weights or all biases
-        weight = torch.Tensor([])
-        bias =  torch.Tensor([])
-        for lif in zip(self.LIF_layers):
-            weight = torch.cat((torch.flatten(lif[0].base_layer.weight), weight.to(lif[0].base_layer.weight.device)))
-            bias = torch.cat((torch.flatten(lif[0].base_layer.bias), bias.to(lif[0].base_layer.weight.device)))
-        
-        # Saving weight or bias histogramm as pytorch file in log2
-        if glob_args != None and glob_args.weight_bias_save_dir != None:
-            #abs_weight_hist = torch.histogram(torch.abs(weight).clone().cpu().detach(), num_elements_hist)
-            #abs_bias_hist = torch.histogram(torch.abs(bias).clone().cpu().detach(), num_elements_hist)
-
-            torch.save(weight, os.getenv("HOME")+'/'+glob_args.weight_bias_save_dir + '_weight_float.pt')
-            torch.save(bias, os.getenv("HOME")+'/'+glob_args.weight_bias_save_dir + '_bias_float.pt')
-
-        # Calculating s paramter for uniform quanisation
-        s_weight = torch.quantile(torch.abs(weight), percentile/100).item() / (np.power(2,(bits - 1)) - 1)
-        s_bias = torch.quantile(torch.abs(bias), percentile/100).item() / (np.power(2,(bits - 1)) - 1)
-
-        # Quantising weights and biases
-        for lif in zip(self.LIF_layers):
-            lif[0].base_layer.weight.data = quantise_tensor(lif[0].base_layer.weight, bits, s_weight)
-            lif[0].base_layer.bias.data = quantise_tensor(lif[0].base_layer.bias, bits, s_bias)
-
-        # Saving s values as well as histogramm of quantised weights and biases
-        if glob_args != None and glob_args.weight_bias_save_dir != None:
-            weight = torch.Tensor([])
-            bias =  torch.Tensor([])
-            for lif in zip(self.LIF_layers):
-                weight = torch.cat((torch.flatten(lif[0].base_layer.weight), weight.to(lif[0].base_layer.weight.device)))
-                bias = torch.cat((torch.flatten(lif[0].base_layer.bias), bias.to(lif[0].base_layer.weight.device)))
-
-            #abs_weight_hist = torch.histogram(torch.abs(weight).clone().cpu().detach(), num_elements_hist)
-            #abs_bias_hist = torch.histogram(torch.abs(bias).clone().cpu().detach(), num_elements_hist)
-
-            torch.save(weight, os.getenv("HOME")+'/'+glob_args.weight_bias_save_dir + '_weight_quantised.pt')
-            torch.save(bias, os.getenv("HOME")+'/'+glob_args.weight_bias_save_dir + '_bias_quantised.pt')
-
-            torch.save(s_weight, os.getenv("HOME")+'/'+glob_args.weight_bias_save_dir + '_weight_s.pt')
-            torch.save(s_bias, os.getenv("HOME")+'/'+glob_args.weight_bias_save_dir + '_bias_s.pt')
-
 
     def init(self, data_batch, burnin = None):
         '''

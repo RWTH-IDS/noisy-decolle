@@ -65,7 +65,6 @@ pool_size:
 quant_method: float
 quantise_test: 0
 quantise_training: 0
-quantise_weight: 0
 random_tau: false
 reg1_l:
 - 0.0
