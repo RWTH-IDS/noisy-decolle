@@ -29,7 +29,7 @@ python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir mismatch_test --mismatch $noise  --no_train true --resume_from results/pretrained
 
 #### Quantization
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir quant_test --quantise_test $noise --percentile 99  --no_train true --resume_from results/pretrained
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir quant_test --quantise_bits $noise --percentile 99  --no_train true --resume_from results/pretrained
 
 #### Thermal
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir thermal_test --thermal_noise $noise  --no_train true --resume_from results/pretrained
@@ -38,7 +38,7 @@ python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --
 ### Run noise-aware training
 ```
 #### 8b Quantization of 20% of all weights
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --quantise_training 8 --p_quantise 0.2
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --quantise_bits 8 --p_quantise 0.2
 
 #### Thermal
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --thermal_noise $noise
