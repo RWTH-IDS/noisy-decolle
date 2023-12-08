@@ -2,6 +2,15 @@
 
 NoisyDECOLLE is a framework for analyzing the impact of various noise sources on spiking neural networks (SNNs). The supported SNNs are trained online with local learning rules following the [DECOLLE algorithm](https://www.frontiersin.org/articles/10.3389/fnins.2020.00424/full). This implementation is based on the original [DECOLLE framework](https://github.com/nmi-lab/decolle-public/tree/master/decolle).
 
+
+### Create Conda Environment
+The framework is tested, using python 3.9. It can be used in an conda environment.
+```
+conda create -n noisy-decolle python=3.9
+conda activate noisy-decolle
+```
+Further information about installing the latest miniconda version can be found at https://docs.conda.io/projects/miniconda/en/latest/miniconda-install.html.
+
 ### Install NoisyDECOLLE
 ```
 git clone https://github.com/RWTH-IDS/noisy-decolle.git
