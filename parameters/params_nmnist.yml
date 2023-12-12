@@ -57,7 +57,7 @@ online_update: true
 optimizer: adamax
 out_channels: 10
 p_quantise: 0
-params_file: /home/stadtmann/1_Projects/noisysnns/parameters/params_nmnist.yml
+params_file: parameters/params_nmnist.yml
 percentile: 0
 pool_size:
 - 2
