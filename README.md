@@ -18,13 +18,15 @@ cd noisy-decolle
 pip install -r requirements.txt
 ```
 
-### Download DVS Gestures
+### Download DVS dataset
 Download DvsGesture.tar.gz from https://ibm.ent.box.com/s/3hiq58ww1pbbjrinh367ykfdf60xsfm8/file/211521748942?sb=/details and place it in the noisy-decolle/ directory. Then run
 ```
 mkdir -p data/dvsgesture
 tar -xzf DvsGesture.tar.gz -C ./data/dvsgesture
 mv data/dvsgesture/DvsGesture data/dvsgesture/raw
+rm DvsGesture.tar.gz
 ```
+The import of the N-MNIST dataset works on the fly.
 
 ### Run training on DVS with default parameters
 ```
