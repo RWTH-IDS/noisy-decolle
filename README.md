@@ -18,6 +18,14 @@ cd noisy-decolle
 pip install -r requirements.txt
 ```
 
+### Download DVS Gestures
+Download DvsGesture.tar.gz from https://ibm.ent.box.com/s/3hiq58ww1pbbjrinh367ykfdf60xsfm8/file/211521748942?sb=/details and place it in the noisy-decolle/ directory. Then run
+```
+mkdir -p data/dvsgesture
+tar -xzf DvsGesture.tar.gz -C ./data/dvsgesture
+mv data/dvsgesture/DvsGesture data/dvsgesture/raw
+```
+
 ### Run training on DVS with default parameters
 ```
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml
