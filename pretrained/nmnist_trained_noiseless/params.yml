@@ -56,6 +56,7 @@ online_update: True
 learning_method: 'rtrl'
 L2: 0.0 # Starting here, the values are added post running
 ba_noise: 0.0
+ba_noise_torch: 0.0
 ba_train: 0.0
 checkpoint_number: -1 # Start at last checkpoint
 device: cuda:0

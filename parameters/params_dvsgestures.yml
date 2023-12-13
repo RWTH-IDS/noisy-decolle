@@ -9,6 +9,7 @@ alpha:
 alpharp:
 - 0.65
 ba_noise: 0.0
+ba_noise_torch: 0.0
 ba_train: 0.0
 batch_size: 72
 beta:
