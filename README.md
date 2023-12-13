@@ -37,22 +37,22 @@ Due to the way the torchneuromorphic dataloader is implemented, the first traini
 ### Run noisy inference on pretrained network
 ```
 #### Spike loss
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir spikeloss_test --spike_loss $noise  --no_train true --resume_from results/pretrained
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir spikeloss_test --spike_loss 50  --no_train true --resume_from pretrained/dvsgestures_trained_noiseless
 
 #### Background activity
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir ba_test --ba_noise $noise  --no_train true --resume_from results/pretrained
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir ba_test --ba_noise 4  --no_train true --resume_from pretrained/dvsgestures_trained_noiseless
 
 #### Hot pixels
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir hotpixel_test --hot_pixels $noise  --no_train true --resume_from results/pretrained
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir hotpixel_test --hot_pixels 0.17  --no_train true --resume_from pretrained/dvsgestures_trained_noiseless
 
 #### Mismatch
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir mismatch_test --mismatch $noise  --no_train true --resume_from results/pretrained
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir mismatch_test --mismatch 0.2  --no_train true --resume_from pretrained/dvsgestures_trained_noiseless
 
 #### Quantization
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir quant_test --quantise_bits $noise --percentile 99  --no_train true --resume_from results/pretrained
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir quant_test --quantise_bits 5 --percentile 99  --no_train true --resume_from pretrained/dvsgestures_trained_noiseless
 
 #### Thermal
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir thermal_test --thermal_noise $noise  --no_train true --resume_from results/pretrained
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir thermal_test --thermal_noise 0.005  --no_train true --resume_from pretrained/dvsgestures_trained_noiseless
 ```
 
 ### Run noise-aware training
