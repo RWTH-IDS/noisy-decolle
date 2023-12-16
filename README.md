@@ -58,10 +58,10 @@ python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --
 ### Run noise-aware training
 ```
 #### 8b Quantization of 20% of all weights
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --quantise_bits 8 --p_quantise 0.2
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --quantise_bits 8 --quant_method tensor --p_quantise 0.2
 
 #### Thermal
-python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --thermal_noise $noise
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --thermal_noise 0.01
 ```
 
 ### Quantization options
@@ -75,7 +75,7 @@ The quantization is controlled by several parameters. All quantization methods i
 * `--quant_method tensor` MinMax Quantization
     + Takes the minimum and maximum weight value in the weight tensor of a given layer to calculate the scaling factor
     + Uses the Torch package's MinMaxObserver
-    
+
 During Quantization Aware Training, the percentage of weight values quantized can be changed using the parameter `--p_quantise p` (p ranges from 0 to 1, 1 means all weights are quantized). During testing, all weight values are quantized.
 
 
