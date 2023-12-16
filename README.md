@@ -82,7 +82,7 @@ The quantization is controlled by several parameters. All quantization methods i
 * `--quant_method float` Absolute Percentile (AbsP) quantization (https://doi.org/10.1109/ICMLA55696.2022.00243)
     + Takes the k-th percentile of absolute weights in the weight tensor of a given layer to calculate the scaling factor
     + `--percentile k` Sets the percentile (k in %)
-* `--quant_method tensor` MinMax Quantization
+* `--quant_method tensor` MinMax Quantization 
     + Takes the minimum and maximum weight value in the weight tensor of a given layer to calculate the scaling factor
     + Uses the Torch package's MinMaxObserver
 
