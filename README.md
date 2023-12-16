@@ -88,7 +88,13 @@ The quantization is controlled by several parameters. All quantization methods i
 
 During Quantization Aware Training, the percentage of weight values quantized can be changed using the parameter `--p_quantise p` (p ranges from 0 to 1, 1 means all weights are quantized). During testing, all weight values are quantized.
 
-
+### Spike Activation Map (SAM)
+Spiking Activation Maps (SAMs) are a useful tool to visualize the network's activity. Due to the high need of RAM or VRAM, the function is outsourced. It can output the spiking activity for all different input categories or just one. This is determined by the parameter `--sam label`. For single input gifs, label ranges from 1-10 for N-MNIST and 1-11 for DVS. If label is set to -1, there will be one gif for each input category. The storage location can be set using `--sam_directory`. The two prompts are added to the other input options, e.g.:
+```
+mkdir sam
+python plot_sam.py --params_file parameters/params_dvsgestures.yml  --no_train true --resume_from pretrained/dvsgestures_trained_noiseless --sam 5 --sam_directory sam 
+```
+In case you run out of VRAM, the computations can be moved to the CPU by adding `--device cpu` in the command line.
 
 ### License
 This project is mainly based on DECOLLE which is licensed under GPLv3 - see LICENSE.txt. Modified files have a modification notice in the header. Newly added files have a header marking them as such. 
