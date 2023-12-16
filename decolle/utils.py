@@ -522,9 +522,9 @@ def test(gen_test, decolle_loss, net, burnin, glob_args=None, print_error = True
                 initialised = True
             
             if glob_args != None and glob_args.sam != None:
-                spike_list = [torch.Tensor().to(device='cuda'), torch.Tensor().to(device='cuda'), torch.Tensor().to(device='cuda')]
-                delta_t = [torch.Tensor().to(device='cuda'), torch.Tensor().to(device='cuda'), torch.Tensor().to(device='cuda')]
-                sam_gif = [torch.Tensor().to(device='cuda'), torch.Tensor().to(device='cuda'), torch.Tensor().to(device='cuda')]
+                spike_list = [torch.Tensor().to(device=glob_args.device), torch.Tensor().to(device=glob_args.device), torch.Tensor().to(device=glob_args.device)]
+                delta_t = [torch.Tensor().to(device=glob_args.device), torch.Tensor().to(device=glob_args.device), torch.Tensor().to(device=glob_args.device)]
+                sam_gif = [torch.Tensor().to(device=glob_args.device), torch.Tensor().to(device=glob_args.device), torch.Tensor().to(device=glob_args.device)]
 
             data_batch = torch.tensor(data_batch).type(dtype).to(device) 
             target_batch = torch.tensor(target_batch).type(dtype).to(device) 
@@ -585,7 +585,7 @@ def test(gen_test, decolle_loss, net, burnin, glob_args=None, print_error = True
                     for k in (range(burnin,timesteps)):
                         s, r, u = net.step(data_batch[:, k, :, :], glob_args, k, batch_num)
                         if len(s) == 3:
-                            spike_list, delta_t, sam_gif = sam(spike_list, delta_t, sam_gif, s)       
+                            spike_list, delta_t, sam_gif = sam(spike_list, delta_t, sam_gif, s, 0.5, glob_args)       
                     return sam_gif               
             else:
                 if glob_args != None and glob_args.save_voltage != None and already_evaluated[torch.argmax(target_batch[0,200,:])] == False:
@@ -620,13 +620,13 @@ def test(gen_test, decolle_loss, net, burnin, glob_args=None, print_error = True
     else: 
         return test_loss, test_acc 
  
-def sam(spike_list, delta_t, sam_gif, s, gamma = 0.5):
+def sam(spike_list, delta_t, sam_gif, s, gamma = 0.5, glob_args=None):
     for layer in range(3):
         spike_list[layer] = torch.cat((spike_list[layer],s[layer]))   # Append current spikes to spike list
 
         # Calculate delta t tensor for all past spikes 
-        delta_t[layer] = torch.cat((delta_t[layer], -1*torch.ones(s[layer].shape).to(device='cuda')))
-        delta_t[layer] = delta_t[layer] + torch.ones(delta_t[layer].shape).to(device='cuda')
+        delta_t[layer] = torch.cat((delta_t[layer], -1*torch.ones(s[layer].shape).to(device=glob_args.device)))
+        delta_t[layer] = delta_t[layer] + torch.ones(delta_t[layer].shape).to(device=glob_args.device)
 
         # Calculate weight for current spikes
         weights = spike_list[layer] * torch.exp(gamma * (-1) * delta_t[layer])

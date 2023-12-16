@@ -19,3 +19,5 @@ test_acc.npy
 params_test_acc.yml
 *_test.yml
 *_test.npy
+*.gif
+__pycache__

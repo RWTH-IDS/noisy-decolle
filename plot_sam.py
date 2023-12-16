@@ -17,19 +17,19 @@ sys.path.insert(1, '../') #This lets python search for packages at first in the 
 
 import train_lenet_decolle
 from decolle.lenet_decolle_model import LenetDECOLLE, DECOLLELoss, LIFLayerVariableTau, LIFLayer
-from decolle.utils import parse_args, train, test, accuracy, save_checkpoint, load_model_from_checkpoint, prepare_experiment, write_stats, cross_entropy_one_hot
+from decolle.utils import train, test, accuracy, save_checkpoint, load_model_from_checkpoint, prepare_experiment, write_stats, cross_entropy_one_hot
 import datetime, os, socket, tqdm
 import numpy as np
 import torch
 import importlib
 import quantization.scalar as scalar
-from moviepy.editor import ImageSequenceClip
+#from moviepy.editor import ImageSequenceClip
 from PIL import Image as im
 from PIL import GifImagePlugin
 
 NUM_RUNS = 3
 
-args = parse_args('parameters/params.yml') 
+args, writer, log_dir, checkpoint_dir, test_file = prepare_experiment()
 
 
 def save_gif (sam_gif, label, layer):
@@ -46,20 +46,21 @@ def save_gif (sam_gif, label, layer):
         # Save gif                    
         sample_gif[0].save(args.sam_directory+'/label_'+str(label)+'_layer_'+str(layer)+'.gif', save_all=True, append_images=sample_gif[1:], duration = 10)
 
-
-if args.dataset == 'dvs':
-    for label in range(11):
+if args.sam != -1:
+    sam_gif = train_lenet_decolle.main()
+    for layer in range (3):
+        save_gif(sam_gif[layer], args.sam, layer)
+else:
+    if args.dataset == 'dvs':
+        num_labels = 11
+    if args.dataset == 'nmnist':
+        num_labels = 10
+    for label in range(num_labels):
         args.sam = label
         sam_gif = train_lenet_decolle.main(args)
         for layer in range (3):
-            save_gif(sam_gif[layer], label, layer)
-        
+            save_gif(sam_gif[layer], label, layer)        
 
-if args.dataset == 'nmnist':
-    for label in range (10):
-        args.sam = label
-        sam_gif = train_lenet_decolle.main(args)
-        for layer in range (3):
-            save_gif(sam_gif[layer], label, layer)
+
 
 
