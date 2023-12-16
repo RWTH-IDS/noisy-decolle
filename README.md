@@ -48,7 +48,7 @@ python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --
 #### Mismatch
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir mismatch_test --mismatch 0.2  --no_train true --resume_from pretrained/dvsgestures_trained_noiseless
 
-#### Quantization
+#### Quantization (AbsP)
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --save_dir quant_test --quantise_bits 5 --percentile 99  --no_train true --resume_from pretrained/dvsgestures_trained_noiseless
 
 #### Thermal
@@ -57,12 +57,22 @@ python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --
 
 ### Run noise-aware training
 ```
-#### 8b Quantization of 20% of all weights
+#### 8b Quantization of 20% of all weights (MinMax Quantization)
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --quantise_bits 8 --quant_method tensor --p_quantise 0.2
 
 #### Thermal
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --thermal_noise 0.01
 ```
+
+### Run noisy inference on networks trained with quantization aware training (QAT)
+```
+#### 4b Minmax puantization during training (100% of weights quantized) and testing
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --quantise_bits 4 --quant_method tensor  --no_train true --resume_from pretrained/dvsgestures_minmax_bits_4_p_1
+
+#### Thermal noise 0.01 during training and testing
+python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --thermal_noise 0.01  --no_train true --resume_from pretrained/dvsgestures_thermal_noise_0.01
+```
+
 
 ### Quantization options
 The quantization is controlled by several parameters. All quantization methods included, use uniform quantization. The option `--quantise_bits` sets the number of bits quantized during training/testing. In the framework, we included different quantization frameworks. They can be set, using the `--quant_method` parameter, and are the following:
