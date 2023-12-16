@@ -1,0 +1,100 @@
+Nhid:
+- 64
+- 128
+- 128
+Mhid: []
+alpha:
+- 0.97
+alpharp:
+- 0.65
+batch_size: 72
+beta:
+- 0.92
+betas:
+- 0.
+- 0.95
+burnin_steps: 100
+chunk_size_test: 1800
+chunk_size_train: 500
+dataset: torchneuromorphic.dvs_gestures.dvsgestures_dataloaders
+deltat: 1000
+input_shape:
+- 2
+- 32
+- 32
+kernel_size:
+- 7
+lc_ampl: 2.0
+learning_rate: 3.6e-4
+learning_method: 'rtrl'
+loss: smoothL1
+lr_drop_factor: 5
+lr_drop_interval: 30
+num_epochs: 200
+num_conv_layers: 3
+num_mlp_layers: 0
+num_layers: 3
+num_dl_workers: 6
+optimizer: adamax
+out_channels: 11
+online_update: True
+pool_size:
+- 2
+- 1
+- 2
+random_tau: false
+reg_l:
+- .0
+- .0
+- .0
+- .0
+test_interval: 3
+with_output_layer: False
+L2: 0.0 # Starting here, the values are added post running
+ba_noise: 0.0
+ba_noise_torch: 0.0
+ba_train: 0.0
+checkpoint_number: -1 # Start at last checkpoint
+device: cuda:0
+dropout: 0
+gif_save_dir: null
+hot_pixels: 0.0
+initial_lr_drop: 0
+log_folder: null
+loss_scope: null
+membrane_voltage_save_dir: null
+mismatch: 0.0
+mismatch_forward: 0.0
+no_save: false
+no_train: false
+npy_name: null
+p_quantise: 0
+params_file: parameters/params_nmnist.yml
+percentile: 0
+quant_method: float
+quantise_bits: 0
+reg1_l:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+reg2_l:
+- 0.0
+- 0.0
+- 0.0
+- 0.0
+reg_smooth_fct: None
+resume_from: null
+sam: null
+sam_directory: null
+save_dir: ''
+save_voltage: null
+seed: 1
+spike_add: 0.0
+spike_loss: 0.0
+symmetric: false
+thermal_noise: 0.0
+threshold: 0.0
+verbose: false
+voltage_save_dir: null
+weight_bias_save_dir: null
