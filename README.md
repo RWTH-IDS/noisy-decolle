@@ -64,6 +64,21 @@ python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml --thermal_noise $noise
 ```
 
+### Quantization options
+The quantization is controlled by several parameters. All quantization methods included, use uniform quantization. The option `--quantise_bits` sets the number of bits quantized during training/testing. In the framework, we included different quantization frameworks. They can be set, using the `--quant_method` parameter, and are the following:
+* `--quant_method brevitas` Absolute Maximum (AbsMax) quantization
+    + Takes the maximum absolute weight value in the weight tensor of a given layer to calculate the scaling factor
+    + Uses the Brevitas library for comparability with other papers
+* `--quant_method float` Absolute Percentile (AbsP) quantization (https://doi.org/10.1109/ICMLA55696.2022.00243)
+    + Takes the k-th percentile of absolute weights in the weight tensor of a given layer to calculate the scaling factor
+    + `--percentile k` Sets the percentile (k in %)
+* `--quant_method tensor` MinMax Quantization
+    + Takes the minimum and maximum weight value in the weight tensor of a given layer to calculate the scaling factor
+    + Uses the Torch package's MinMaxObserver
+During Quantization Aware Training, the percentage of weight values quantized can be changed using the parameter `--p_quantise p` (p ranges from 0 to 1, 1 means all weights are quantized). During testing, all weight values are quantized.
+
+
+
 ### License
 This project is mainly based on DECOLLE which is licensed under GPLv3 - see LICENSE.txt. Modified files have a modification notice in the header. Newly added files have a header marking them as such. 
 
