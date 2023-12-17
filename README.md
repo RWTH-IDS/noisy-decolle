@@ -32,7 +32,7 @@ The import of the N-MNIST dataset works on the fly.
 ```
 python train_lenet_decolle.py --params_file parameters/params_dvsgestures.yml
 ```
-Due to the way the torchneuromorphic dataloader is implemented, the first training run of DVS should not be stopped before the 4th epoch.
+Due to the way the torchneuromorphic dataloader is implemented, the first training run of DVS should not be stopped before the 4th epoch. The log-file subfolder and the save directory are controlled using `--log_folder` and `--save_dir`.
 
 ### Run noisy inference on pretrained network
 ```
