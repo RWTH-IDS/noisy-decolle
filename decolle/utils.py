@@ -251,7 +251,6 @@ def prepare_experiment():
     parser.add_argument('--hot_pixels', type=float, help='Hot pixels proportion (in %)')
     parser.add_argument('--ba_noise', type=float, help='Lambda of background activity')
     parser.add_argument('--ba_noise_torch', type=float, help='Lambda of background activity (faster computation, slightly different)')
-    parser.add_argument('--npy_name', type=str, help='Describe path and npy-file name coming from home directory, saves accuracies')
     parser.add_argument('--gif_save_dir', type=str, help='Enter gif parent save dir starting with / if test data should be saved as gif')
     parser.add_argument('--membrane_voltage_save_dir', type=str, help='Save membrane voltages to this directory (add name without .npy)')
     parser.add_argument('--mismatch', type=float, help='Enter level of mismatch in percent')

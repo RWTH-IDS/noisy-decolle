@@ -47,7 +47,6 @@ mismatch: 0.0
 mismatch_forward: 0.0
 no_save: false
 no_train: false
-npy_name: null
 num_conv_layers: 3
 num_dl_workers: 4
 num_epochs: 50
