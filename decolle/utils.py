@@ -256,7 +256,6 @@ def prepare_experiment():
     parser.add_argument('--mismatch', type=float, help='Enter level of mismatch in percent')
     parser.add_argument('--spike_loss', type=float, help='Define percentage of spike loss from one layer to another')
     parser.add_argument('--spike_add', type=float, help='Define percentage of added spikes from one layer to another')
-    parser.add_argument('--weight_bias_save_dir', type=str, help= 'Save weight and bias distribution to this directory (add name without .npy) coming from home directory')
     parser.add_argument('--percentile', type=float, help='Percentile for calculating s for quantisation')   
     parser.add_argument('--log_folder', type=str, help='Enter name for log folder')
     parser.add_argument('--dropout', type=float, help='Enter the dropout value ranging from 0 to 1')
