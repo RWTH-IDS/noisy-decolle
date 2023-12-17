@@ -90,5 +90,4 @@ thermal_noise: 0.0
 threshold: 0.0
 verbose: false
 voltage_save_dir: null
-weight_bias_save_dir: null
 with_output_layer: false
